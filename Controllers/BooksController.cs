@@ -16,16 +16,16 @@ namespace BookManagement.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Book>> GetAllBooks()
+        public async Task<ActionResult<List<Book>>> GetAllBooksAsync()
         {
-            var books = _bookService.GetAllBooksAsync();
+            var books = await _bookService.GetAllBooksAsync();
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Book> GetBookById(int id)
+        [HttpGet("{id}", Name = "GetBookById")]
+        public async Task<ActionResult<Book>> GetBookByIdAsync(int id)
         {
-            var book = _bookService.GetBookByIdAsync(id);
+            var book = await _bookService.GetBookByIdAsync(id);
             if (book == null)
                 return NotFound(new { message = $"Book with ID {id} not found." });
 
@@ -33,13 +33,13 @@ namespace BookManagement.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Book> AddBook([FromBody] Book book)
+        public async Task<ActionResult<Book>> AddBookAsync([FromBody] Book book)
         {
             if (book == null)
                 return BadRequest("Book data is required.");
 
-            _bookService.AddBookAsync(book);
-            return CreatedAtAction(nameof(GetBookById), new { id = book.Id }, book);
+            await _bookService.AddBookAsync(book);
+            return CreatedAtRoute("GetBookById", new { id = book.Id }, book);
         }
     }
 }
