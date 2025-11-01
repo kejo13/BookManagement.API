@@ -11,8 +11,8 @@ namespace BookManagement.API.Services
         {
             _books = new List<Book>
             {
-                new Book { Id = 1, Title = "", Author = "", YearPublished = 2025},
-                new Book { Id = 2, Title = "", Author = "", YearPublished = 2025},
+                new Book { Id = 1, Title = "Clean Code", Author = "Robert C. Martin", YearPublished = 2008 },
+                new Book { Id = 2, Title = "The Pragmatic PRogrammer", Author = "Andrew Hunt & David Thomas", YearPublished = 2025 },
             };
         }
 
